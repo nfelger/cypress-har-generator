@@ -18,6 +18,7 @@ export interface RecordOptions {
   content: boolean;
   excludePaths: string[];
   includeHosts: string[];
+  rdpHost?: string;
 }
 
 export class Plugin {
@@ -51,7 +52,7 @@ export class Plugin {
     await this.closeConnection();
 
     this.connection = new CRIConnection(
-      { port: this.rdpPort },
+      { port: this.rdpPort, host: options.rdpHost },
       this.logger,
       new RetryStrategy(20, 5, 100)
     );
